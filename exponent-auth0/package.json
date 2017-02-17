@@ -1,0 +1,27 @@
+{
+  "name": "exponent-auth0",
+  "version": "0.0.0",
+  "description": "Hello Exponent!",
+  "author": null,
+  "private": true,
+  "main": "main.js",
+  "dependencies": {
+    "@exponent/ex-navigation": "^2.9.1",
+    "@exponent/vector-icons": "~4.0.0",
+    "apollo-client": "^0.8.5",
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "exponent": "~14.0.0-rc.1",
+    "graphql-tag": "^1.2.4",
+    "jwt-decode": "^2.1.0",
+    "react": "~15.4.0",
+    "react-apollo": "^0.10.1",
+    "react-native": "git+https://github.com/exponentjs/react-native#sdk-14.0.0",
+    "react-native-material-design": "^0.3.7",
+    "react-native-svg": "^5.1.5",
+    "react-native-svg-uri": "^1.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.13.1",
+    "eslint-config-anf": "^0.4.4"
+  }
+}
