@@ -8,8 +8,10 @@ import {
   Dimensions,
   StyleSheet,
   TouchableHighlight,
+  Modal,
 } from 'react-native'
 import CommentView from './CommentView'
+import CreateCommentView from './CreateCommentView'
 
 export default class PostDetailView extends React.Component {
 
@@ -17,21 +19,12 @@ export default class PostDetailView extends React.Component {
     fontLoaded: false,
     width: 0,
     height: 0,
+    modalVisible: false,
   }
 
   static route = {
     navigationBar: {
       title: 'Post Details',
-      renderRight: (route, props) => { return (
-        <TouchableHighlight
-          onPress={() => this._addComment()}
-        >
-          <Image
-            style={styles.newCommenButton}
-            source={require('../assets/img/comments.png')}
-          />
-        </TouchableHighlight>
-      )},
     }
   }
 
@@ -59,6 +52,19 @@ export default class PostDetailView extends React.Component {
 
     return (
       <ScrollView style={styles.container}>
+        <Modal
+          animationType='slide'
+          transparent={true}
+          visible={this.state.modalVisible}
+        >
+          <CreateCommentView
+            onComplete={() => this.setState({modalVisible: false})}
+            imageUrl={this.props.route.params.post.imageUrl}
+            imageWidth={this.state.width}
+            imageHeight={this.state.height}
+            createdBy='Karl'
+          />
+        </Modal>
         <Image
           style={{width: width, height: height}}
           source={{uri: this.props.route.params.post.imageUrl}}
@@ -69,6 +75,18 @@ export default class PostDetailView extends React.Component {
           </Text>
         </View>
         <View style={styles.commentContainer}>
+          <View
+            style={styles.newCommentButtonContainer}
+          >
+            <TouchableHighlight
+              onPress={() => this._addComment()}
+            >
+              <Image
+                style={styles.newCommenButton}
+                source={require('../assets/img/comments.png')}
+              />
+            </TouchableHighlight>
+          </View>
           {this.props.route.params.post.comments.map((comment, i) => {
             return (<CommentView
               key={i}
@@ -83,7 +101,7 @@ export default class PostDetailView extends React.Component {
   }
 
   _addComment = () => {
-    console.log('add comment')
+    this.setState({modalVisible: true})
   }
 
 }
@@ -105,13 +123,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   commentContainer: {
-    backgroundColor: 'rgba(0,0,0,.03)'
+    backgroundColor: 'rgba(0,0,0,.03)',
+  },
+  newCommentButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
   },
   newCommenButton: {
     width: 25,
     height: 25,
-    marginTop: 8,
-    marginRight: 12,
   }
 })
 

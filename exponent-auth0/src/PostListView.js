@@ -33,12 +33,6 @@ const AllPostsQuery = gql`
 
 class PostListView extends React.Component {
 
-  static route = {
-    navigationBar: {
-      title: 'Posts',
-    }
-  }
-
   constructor(props) {
     super(props)
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
@@ -71,19 +65,20 @@ class PostListView extends React.Component {
 
   render() {
 
-    console.log()
+    console.log('PostListView - render, modalVisible: ', this.state.modalVisible)
 
     return (
       <View style={{flex: 1, paddingTop: 22}}>
 
         <Modal
-          animationType={"slide"}
+          animationType='slide'
           transparent={true}
-          visible={false}
-          onRequestClose={() => {alert("Modal has been closed.")}}
+          visible={this.state.modalVisible}
         >
           <CreatePostView
-            onComplete={() => this.setState({modalVisible: this.state.modalVisible})}
+            onComplete={() => {
+              this.setState({modalVisible: false})
+            }}
           />
         </Modal>
 
@@ -91,7 +86,6 @@ class PostListView extends React.Component {
           enableEmptySections={true}
           dataSource={this.state.dataSource}
           renderRow={(post, section, row) => {
-            console.log('render post with comments: ', post.comments.length, post.description)
             return (<PostItem
               description={post.description}
               imageUrl={post.imageUrl}

@@ -17,15 +17,12 @@ export default class CommentView extends React.Component {
   }
 
   async componentDidMount() {
-
     // load font
     await Font.loadAsync({
       'open-sans-regular': require('../assets/fonts/OpenSans-Regular.ttf'),
       'open-sans-semibold': require('../assets/fonts/OpenSans-Semibold.ttf'),
     })
     this.setState({fontLoaded: true})
-
-
   }
 
   render() {
