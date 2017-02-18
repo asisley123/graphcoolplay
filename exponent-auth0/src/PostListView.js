@@ -32,6 +32,9 @@ const allPostsQuery = gql`
             description
             imageUrl
             createdAt
+            createdBy {
+                name
+            }
         }
     }
 `
@@ -105,8 +108,11 @@ class PostListView extends React.Component {
           'postId': post.id,
           'description': post.description,
           'imageUrl': post.imageUrl,
+          'createdBy': post.createdBy.name,
         }
       })
+
+      console.log('posts', posts)
 
       if (!nextProps.fetchAllPosts.loading && !nextProps.fetchAllPosts.error) {
         const {dataSource} = this.state
@@ -132,6 +138,7 @@ class PostListView extends React.Component {
           <CreatePostView
             userId={this.state.user && this.state.user.id}
             onComplete={() => {
+              this.props.fetchAllPosts.refetch()
               this.setState({modalVisible: false})
             }}
           />
@@ -146,6 +153,7 @@ class PostListView extends React.Component {
               imageUrl={post.imageUrl}
               comments={post.comments}
               postId={post.postId}
+              createdBy={post.createdBy}
               onSelect={this._onRowSelected}
             />)
           }}
@@ -220,7 +228,7 @@ class PostListView extends React.Component {
               this.setState({
                 user: {
                   name: result.data.user.name,
-                  id: result.data.xcdeuser.id,
+                  id: result.data.user.id,
                 }
               })
             } else {
@@ -237,7 +245,7 @@ class PostListView extends React.Component {
                   this.setState({
                     user: {
                       name: result.data.createUser.name,
-                      id: result.data.id,
+                      id: result.data.createUser.id,
                     }
                   })
                 },
@@ -259,42 +267,6 @@ class PostListView extends React.Component {
       }
     )
 
-    // try {
-    //   await AsyncStorage.setItem('token', encodedToken)
-    //   console.log('Did store token in AsyncStorage', encodedToken)
-    // } catch (error) {
-    //   console.error('ERROR: could not store token in AsyncStorage')
-    // }
-    //
-    // console.log('PostListView - PROPS: ', this.props)
-
-    // console.log('login from user: ', username)
-    //
-    // // check if the user already exists
-    // const userResult = await client.query({
-    //   query: gql`{
-    //       user {
-    //           id
-    //       }
-    //   }`
-    // })
-
-    // console.log('user result', userResult)
-
-    // console.log('create new user', username, encodedToken)
-    // await client.mutate({mutation: gql`mutation {
-    //     createUser(
-    //     authProvider: {
-    //     auth0: {
-    //     idToken: "${encodedToken}"
-    //     }
-    //     }
-    //     name: "${username}"
-    //     ) {
-    //         id
-    //     }
-    // }`})
-    // this.setState({userId, username})
   }
 
   /**
@@ -318,6 +290,3 @@ export default compose(
   graphql(allPostsQuery, { name: 'fetchAllPosts' }),
   graphql(createUserMutation, { name: 'createUser' }),
 )(PostListView)
-
-// const postListViewWithQueries = graphql(allPostsQuery)(PostListView)
-// export default postListViewWithQueries

@@ -77,27 +77,25 @@ class PostDetailView extends React.Component {
     const {data} = this.props
 
     const {width, height} = this.state
-    console.log('PostDetailView - render: ', this.props.data.allComments)
-    // let sortedComments = this.props.route.params.post.comments.slice()
-    let sortedComments = this.props.data && this.props.data.allComments ? this.props.data.allComments.slice() : []
+    const sortedComments = this.props.data && this.props.data.allComments ? this.props.data.allComments.slice() : []
     sortedComments.sort((p1, p2) => new Date(p2.createdAt).getTime() - new Date(p1.createdAt).getTime())
 
     return (
       <ScrollView style={styles.container}>
         <Modal
           animationType='slide'
-          transparent={true}
+          transparent={false}
           visible={this.state.modalVisible}
         >
           <CreateCommentView
             onComplete={() => {
-              this.props.route.params.refetchPostData()
+              this.props.data.refetch()
               this.setState({modalVisible: false})
             }}
             imageUrl={this.props.route.params.post.imageUrl}
             imageWidth={this.state.width}
             imageHeight={this.state.height}
-            createdBy='Karl'
+            createdBy={this.props.route.params.post.createdBy}
             postId={this.props.route.params.post.postId}
             userId={this.props.route.params.userId}
           />
@@ -112,7 +110,7 @@ class PostDetailView extends React.Component {
           </Text>
         </View>
         <View style={styles.commentContainer}>
-          {this.props.userId &&
+          {this.props.route.params.userId &&
           <View
             style={styles.newCommentButtonContainer}
           >
@@ -120,7 +118,7 @@ class PostDetailView extends React.Component {
               onPress={() => this._addComment()}
             >
               <Image
-                style={styles.newCommenButton}
+                style={styles.newCommentButton}
                 source={require('../assets/img/comments.png')}
               />
             </TouchableHighlight>
@@ -142,6 +140,7 @@ class PostDetailView extends React.Component {
   _addComment = () => {
     this.setState({modalVisible: true})
   }
+
 }
 
 const postDetailViewWithQueries = graphql(allCommentsQuery, {
@@ -178,7 +177,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 16,
   },
-  newCommenButton: {
+  newCommentButton: {
     width: 25,
     height: 25,
   }

@@ -23,13 +23,21 @@ export default class PostItem extends React.Component {
 
     Image.getSize(this.props.imageUrl, (width, height) => {
 
-      const screenWidth = Dimensions.get('window').width
+      // const screenWidth = Dimensions.get('window').width
+      //
+      // const scaleFactor = width / screenWidth
+      // const imageHeight = height / scaleFactor
+      //
+      // this.setState({width: screenWidth, height: imageHeight})
+      const screenHeight =  250 // Dimensions.get('window').height
 
-      const scaleFactor = width / screenWidth
-      const imageHeight = height / scaleFactor
+      const scaleFactor = height / screenHeight
+      const imageWidth = width / scaleFactor
 
-      this.setState({width: screenWidth, height: imageHeight})
+      this.setState({width: imageWidth, height: screenHeight})
+
     })
+
 
     // load font
     await Font.loadAsync({
@@ -41,7 +49,7 @@ export default class PostItem extends React.Component {
   render() {
 
     const {width, height} = this.state
-    const {description, imageUrl, comments, postId} = this.props
+    const {description, imageUrl, comments, postId, createdBy} = this.props
     return (
       <TouchableHighlight
         onPress={() => this.props.onSelect({
@@ -49,13 +57,16 @@ export default class PostItem extends React.Component {
           'imageUrl': imageUrl,
           'comments': comments,
           'postId': postId,
+          'createdBy': createdBy,
         })}
       >
         <View>
-          <Image
-            style={{width: width, height: height}}
-            source={{uri: this.props.imageUrl}}
-          />
+          <View style={styles.imageContainer}>
+            <Image
+              style={{width, height}}
+              source={{uri: this.props.imageUrl}}
+            />
+          </View>
           {this.state.fontLoaded &&
           <View>
             <View style={styles.titleContainer}>
@@ -73,13 +84,18 @@ export default class PostItem extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   titleContainer: {
     height: 100,
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 25,
   },
   title: {
+    marginTop:12,
     fontFamily: 'open-sans-light',
     color: 'rgba(0,0,0,.8)',
     fontWeight: '300',

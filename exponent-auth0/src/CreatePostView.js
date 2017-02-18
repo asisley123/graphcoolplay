@@ -13,12 +13,12 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 const createPostMutation = gql`
-    mutation createPost($description: String!, $imageUrl: String!, $userId: ID!) {
-        createPost(description: $description, imageUrl: $imageUrl, userId: $userId) {
+    mutation createPost($description: String!, $imageUrl: String!, $createdById: ID!) {
+        createPost(description: $description, imageUrl: $imageUrl, createdById: $createdById) {
             description
             imageUrl
             createdAt
-            user {
+            createdBy {
                 name
             }
         }
@@ -95,8 +95,8 @@ class CreatePostView extends React.Component {
   _createPost = () => {
     console.log('create post', description, imageUrl)
     const {description, imageUrl} = this.state
-    const userId = this.props.userId
-    this.props.mutate({variables: { description, imageUrl, userId }})
+    const createdById = this.props.userId
+    this.props.mutate({variables: { description, imageUrl, createdById }})
       .then((result) => {
         console.log('result', result)
         this.props.onComplete()

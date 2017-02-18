@@ -118,17 +118,12 @@ const CreateCommentViewWithMutation = graphql(createCommentMutation)(CreateComme
 export default CreateCommentViewWithMutation
 
 const styles = StyleSheet.create({
-  outerContainer: {
-    backgroundColor: 'rgba(255,255,255,1)',
-    opacity: 0.6,
-  },
   container: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: 'rgba(247,247,247,1)',
-    // backgroundColor: 'red',
     marginTop: 22,
     marginBottom: 16,
     paddingTop: 42,
