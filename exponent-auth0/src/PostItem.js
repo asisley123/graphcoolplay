@@ -22,22 +22,13 @@ export default class PostItem extends React.Component {
   async componentDidMount() {
 
     Image.getSize(this.props.imageUrl, (width, height) => {
+      const imageHeight =  250
 
-      // const screenWidth = Dimensions.get('window').width
-      //
-      // const scaleFactor = width / screenWidth
-      // const imageHeight = height / scaleFactor
-      //
-      // this.setState({width: screenWidth, height: imageHeight})
-      const screenHeight =  250 // Dimensions.get('window').height
-
-      const scaleFactor = height / screenHeight
+      const scaleFactor = height / imageHeight
       const imageWidth = width / scaleFactor
 
-      this.setState({width: imageWidth, height: screenHeight})
-
+      this.setState({width: imageWidth, height: imageHeight})
     })
-
 
     // load font
     await Font.loadAsync({

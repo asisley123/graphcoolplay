@@ -38,13 +38,18 @@ class CreateCommentView extends React.Component {
 
   render() {
 
-    const screenWidth = Dimensions.get('window').width
-    const modalWidth = screenWidth - horizontalMargin * 2
+    // const screenWidth = Dimensions.get('window').width
+    // const modalWidth = screenWidth - horizontalMargin * 2
     const imageMargin = 8
-    const imageWidth = (modalWidth / 2) - 2 * imageMargin
+    // const imageWidth = (modalWidth / 2) - 2 * imageMargin
 
-    const scaleFactor = this.props.imageWidth / imageWidth
-    const imageHeight = this.props.imageHeight / scaleFactor
+    const imageHeight = 125
+    const scaleFactor = this.props.imageHeight / imageHeight
+    const imageWidth = this.props.imageWidth / scaleFactor
+
+
+    // const scaleFactor = this.props.imageWidth / imageWidth
+    // const imageHeight = this.props.imageHeight / scaleFactor
 
     return (
       <View style={styles.container}>

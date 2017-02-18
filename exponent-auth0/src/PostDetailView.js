@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
     color: 'rgba(0,0,0,.8)',
     fontWeight: '300',
     fontSize: 20,
+    marginHorizontal: 12,
   },
   commentContainer: {
     backgroundColor: 'rgba(0,0,0,.03)',
