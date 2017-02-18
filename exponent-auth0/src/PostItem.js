@@ -41,13 +41,14 @@ export default class PostItem extends React.Component {
   render() {
 
     const {width, height} = this.state
-    const {description, imageUrl, comments} = this.props
+    const {description, imageUrl, comments, postId} = this.props
     return (
       <TouchableHighlight
         onPress={() => this.props.onSelect({
           'description': description,
           'imageUrl': imageUrl,
           'comments': comments,
+          'postId': postId,
         })}
       >
         <View>

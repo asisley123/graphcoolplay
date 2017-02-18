@@ -1,4 +1,4 @@
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import React from 'react'
 import {
@@ -8,28 +8,58 @@ import {
   StyleSheet,
   Modal,
   TouchableHighlight,
+  Linking,
+  AsyncStorage,
 } from 'react-native'
 import PostItem from './PostItem'
 import CreatePostView from './CreatePostView'
 import {Button} from 'react-native-material-design'
+import Exponent from 'exponent'
+import jwtDecoder from 'jwt-decode'
+import {
+  redirect_uri,
+  auth0_client_id,
+  authorize_url,
+  client,
+} from '../main'
 
 import Router from '../main'
 
-const AllPostsQuery = gql`
-  query AllPostsQuery { 
-      allPosts { 
-          description
-          imageUrl
-          comments {
-              createdAt
-              content
-              user {
-                  name
-              }
-          }
-      } 
-  }
+const allPostsQuery = gql`
+    query allPosts {
+        allPosts {
+            id
+            description
+            imageUrl
+            createdAt
+        }
+    }
 `
+
+const currentUserQuery = gql`
+    query currentUser {
+        user {
+            id
+            name
+        }
+    }
+`
+
+const createUserMutation = gql`
+    mutation createUser($encodedToken: String!, $username: String!) {
+        createUser(
+        authProvider: {
+        auth0: {
+        idToken: $encodedToken
+        }
+        }
+        name: $username
+        )
+        {
+            id
+            name
+        }
+    }`
 
 class PostListView extends React.Component {
 
@@ -39,33 +69,57 @@ class PostListView extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows([]),
       modalVisible: false,
+      user: undefined,
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { data } = nextProps
-    const descriptions = data.allPosts.map(post => post.description)
-    const imageUrls = data.allPosts.map(post => post.imageUrl)
+  componentDidMount() {
 
-    const posts = data.allPosts.map(post => {
-      return {
-        'description': post.description,
-        'imageUrl': post.imageUrl,
-        'comments': post.comments,
+    // handle redirects after auth0 authentication
+    Linking.addEventListener('url', this._handleAuth0Redirect)
+
+    // check if a user already exists
+    client.query({query: currentUserQuery}).then(
+      result => {
+        if (result.data.user) {
+          this.setState({
+            user: {
+              name: result.data.user.name,
+              id: result.data.user.id,
+            }
+          })
+        }
       }
-    })
+    )
+  }
 
-    if (!data.loading && !data.error) {
-      const { dataSource } = this.state
-      this.setState({
-        dataSource: dataSource.cloneWithRows(posts),
+  componentWillReceiveProps(nextProps) {
+
+    // update posts
+    if (nextProps.fetchAllPosts.allPosts) {
+      const sortedPosts = nextProps.fetchAllPosts.allPosts.slice()
+      sortedPosts.sort((p1, p2) => new Date(p2.createdAt).getTime() - new Date(p1.createdAt).getTime())
+
+      const posts = sortedPosts.map(post => {
+        return {
+          'postId': post.id,
+          'description': post.description,
+          'imageUrl': post.imageUrl,
+        }
       })
+
+      if (!nextProps.fetchAllPosts.loading && !nextProps.fetchAllPosts.error) {
+        const {dataSource} = this.state
+        this.setState({
+          dataSource: dataSource.cloneWithRows(posts),
+        })
+      }
     }
   }
 
   render() {
 
-    console.log('PostListView - render, modalVisible: ', this.state.modalVisible)
+    const addButtonText = this.state.user ? 'Create new post' : 'Sign in to create a post'
 
     return (
       <View style={{flex: 1, paddingTop: 22}}>
@@ -76,6 +130,7 @@ class PostListView extends React.Component {
           visible={this.state.modalVisible}
         >
           <CreatePostView
+            userId={this.state.user && this.state.user.id}
             onComplete={() => {
               this.setState({modalVisible: false})
             }}
@@ -90,26 +145,165 @@ class PostListView extends React.Component {
               description={post.description}
               imageUrl={post.imageUrl}
               comments={post.comments}
+              postId={post.postId}
               onSelect={this._onRowSelected}
             />)
           }}
         />
         <Button
           style={styles.addButton}
-          text='+' raised={true}
-          onPress={() => {
-            this.setState({modalVisible: true})
-          }}
+          text={addButtonText}
+          raised={true}
+          onPress={() => this._addButtonPressed()}
         />
-
       </View>
     )
   }
 
+  _addButtonPressed() {
+    if (this.state.user) {
+      console.log('create new post')
+      this.setState({modalVisible: true})
+    } else {
+      console.log('login')
+      this._loginWithAuth0()
+    }
+  }
+
   _onRowSelected = (post) => {
-    console.log('select post: ', post)
-    console.log('comments: ', post.comments)
-    this.props.navigator.push(Router.getRoute('postDetails', {post: post}))
+    this.props.navigator.push(Router.getRoute('postDetails', {
+      post: post,
+      userId: this.state.user && this.state.user.id,
+    }))
+  }
+
+  _loginWithAuth0 = async () => {
+    const redirectionURL = authorize_url + this._toQueryString({
+        client_id: auth0_client_id,
+        response_type: 'token',
+        scope: 'openid name',
+        redirect_uri,
+        state: redirect_uri,
+      })
+    console.log('redirect: ', redirectionURL)
+    Exponent.WebBrowser.openBrowserAsync(redirectionURL)
+  }
+
+  _handleAuth0Redirect = async (event) => {
+
+    console.log('_handleAuth0Redirect')
+    if (!event.url.includes('+/redirect')) {
+      return
+    }
+    Exponent.WebBrowser.dismissBrowser()
+    const [, queryString] = event.url.split('#')
+    const responseObj = queryString.split('&').reduce((map, pair) => {
+      const [key, value] = pair.split('=')
+      map[key] = value // eslint-disable-line
+      return map
+    }, {})
+    const encodedToken = responseObj.id_token
+    const decodedToken = jwtDecoder(encodedToken)
+    const username = decodedToken.name
+
+    console.log('Store token in AsyncStorage', encodedToken)
+
+    AsyncStorage.setItem('token', encodedToken).then(
+      result => {
+        console.log('Did store token in AsyncStorage', encodedToken)
+        console.log('Check for current user')
+
+        client.query({query: currentUserQuery}).then(
+          result => {
+            console.log('got result:', result)
+            if (result.data.user) {
+              this.setState({
+                user: {
+                  name: result.data.user.name,
+                  id: result.data.xcdeuser.id,
+                }
+              })
+            } else {
+              this.props.createUser(
+                { variables:
+                  {
+                    encodedToken,
+                    username,
+                  }
+                }
+              ).then(
+                result => {
+                  console.log('did create user: ', result)
+                  this.setState({
+                    user: {
+                      name: result.data.createUser.name,
+                      id: result.data.id,
+                    }
+                  })
+                },
+                failure => {
+                  console.log('could not create user: ', failure)
+                }
+              )
+            }
+          },
+          failure => {
+            console.log('failed asking for current user: ', failure)
+
+          }
+        )
+
+      },
+      failure => {
+        console.error('ERROR: could not store token in AsyncStorage')
+      }
+    )
+
+    // try {
+    //   await AsyncStorage.setItem('token', encodedToken)
+    //   console.log('Did store token in AsyncStorage', encodedToken)
+    // } catch (error) {
+    //   console.error('ERROR: could not store token in AsyncStorage')
+    // }
+    //
+    // console.log('PostListView - PROPS: ', this.props)
+
+    // console.log('login from user: ', username)
+    //
+    // // check if the user already exists
+    // const userResult = await client.query({
+    //   query: gql`{
+    //       user {
+    //           id
+    //       }
+    //   }`
+    // })
+
+    // console.log('user result', userResult)
+
+    // console.log('create new user', username, encodedToken)
+    // await client.mutate({mutation: gql`mutation {
+    //     createUser(
+    //     authProvider: {
+    //     auth0: {
+    //     idToken: "${encodedToken}"
+    //     }
+    //     }
+    //     name: "${username}"
+    //     ) {
+    //         id
+    //     }
+    // }`})
+    // this.setState({userId, username})
+  }
+
+  /**
+   * Converts an object to a query string.
+   */
+  _toQueryString(params) {
+    return '?' + Object.entries(params)
+        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+        .join('&')
   }
 
 }
@@ -120,5 +314,10 @@ const styles = StyleSheet.create({
   }
 })
 
-const postListViewWithQueries = graphql(AllPostsQuery)(PostListView)
-export default postListViewWithQueries
+export default compose(
+  graphql(allPostsQuery, { name: 'fetchAllPosts' }),
+  graphql(createUserMutation, { name: 'createUser' }),
+)(PostListView)
+
+// const postListViewWithQueries = graphql(allPostsQuery)(PostListView)
+// export default postListViewWithQueries

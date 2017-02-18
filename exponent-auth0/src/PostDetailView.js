@@ -12,8 +12,29 @@ import {
 } from 'react-native'
 import CommentView from './CommentView'
 import CreateCommentView from './CreateCommentView'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 
-export default class PostDetailView extends React.Component {
+const allCommentsQuery = gql`
+    query allComments($postId: ID!) {
+      allComments(filter: {
+        post: {
+          id: $postId
+        }
+      })
+      {
+        id
+        createdAt
+        content
+        author {
+            id
+            name
+        }
+      }
+    }
+`
+
+class PostDetailView extends React.Component {
 
   state = {
     fontLoaded: false,
@@ -28,7 +49,12 @@ export default class PostDetailView extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('PostDetailView - nextProps: ', nextProps.data.allComments)
+  }
+
   async componentDidMount() {
+
     Image.getSize(this.props.route.params.post.imageUrl, (width, height) => {
 
       const screenWidth = Dimensions.get('window').width
@@ -48,7 +74,13 @@ export default class PostDetailView extends React.Component {
 
   render() {
 
+    const {data} = this.props
+
     const {width, height} = this.state
+    console.log('PostDetailView - render: ', this.props.data.allComments)
+    // let sortedComments = this.props.route.params.post.comments.slice()
+    let sortedComments = this.props.data && this.props.data.allComments ? this.props.data.allComments.slice() : []
+    sortedComments.sort((p1, p2) => new Date(p2.createdAt).getTime() - new Date(p1.createdAt).getTime())
 
     return (
       <ScrollView style={styles.container}>
@@ -58,11 +90,16 @@ export default class PostDetailView extends React.Component {
           visible={this.state.modalVisible}
         >
           <CreateCommentView
-            onComplete={() => this.setState({modalVisible: false})}
+            onComplete={() => {
+              this.props.route.params.refetchPostData()
+              this.setState({modalVisible: false})
+            }}
             imageUrl={this.props.route.params.post.imageUrl}
             imageWidth={this.state.width}
             imageHeight={this.state.height}
             createdBy='Karl'
+            postId={this.props.route.params.post.postId}
+            userId={this.props.route.params.userId}
           />
         </Modal>
         <Image
@@ -75,6 +112,7 @@ export default class PostDetailView extends React.Component {
           </Text>
         </View>
         <View style={styles.commentContainer}>
+          {this.props.userId &&
           <View
             style={styles.newCommentButtonContainer}
           >
@@ -87,10 +125,11 @@ export default class PostDetailView extends React.Component {
               />
             </TouchableHighlight>
           </View>
-          {this.props.route.params.post.comments.map((comment, i) => {
+          }
+          {sortedComments.map((comment, i) => {
             return (<CommentView
               key={i}
-              user={comment.user.name}
+              user={comment.author.name}
               comment={comment.content}
               createdAt={comment.createdAt}
             />)
@@ -103,9 +142,16 @@ export default class PostDetailView extends React.Component {
   _addComment = () => {
     this.setState({modalVisible: true})
   }
-
 }
 
+const postDetailViewWithQueries = graphql(allCommentsQuery, {
+  options: (ownProps) => ({
+    variables: {
+      postId: ownProps.route.params.post.postId,
+    }
+  })
+})(PostDetailView)
+export default postDetailViewWithQueries
 
 const styles = StyleSheet.create({
   container: {
@@ -124,6 +170,7 @@ const styles = StyleSheet.create({
   },
   commentContainer: {
     backgroundColor: 'rgba(0,0,0,.03)',
+    paddingBottom: 8,
   },
   newCommentButtonContainer: {
     flex: 1,
@@ -138,5 +185,5 @@ const styles = StyleSheet.create({
 })
 
 PostDetailView.propTypes = {
-  // post: React.PropTypes.object,
 }
+
