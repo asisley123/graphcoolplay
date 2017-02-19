@@ -13,7 +13,6 @@ import {
 } from 'react-native'
 import PostItem from './PostItem'
 import CreatePostView from './CreatePostView'
-import {Button} from 'react-native-material-design'
 import Exponent from 'exponent'
 import jwtDecoder from 'jwt-decode'
 import {
@@ -22,6 +21,7 @@ import {
   authorize_url,
   client,
 } from '../main'
+import ListViewFooter from './ListViewFooter'
 
 import Router from '../main'
 
@@ -75,7 +75,6 @@ class PostListView extends React.Component {
       user: undefined,
     }
 
-    AsyncStorage.clear()
   }
 
   componentDidMount() {
@@ -158,23 +157,24 @@ class PostListView extends React.Component {
             />)
           }}
         />
-        <Button
-          text={addButtonText}
-          raised={true}
-          onPress={() => this._addButtonPressed()}
+        <ListViewFooter
+          loggedIn={Boolean(this.state.user)}
+          onSignIn={() => this._loginWithAuth0()}
+          onLogout={() => {
+            AsyncStorage.clear()
+            this.setState({
+              ...this.state,
+              user: undefined,
+            })
+          }}
+          onCreateNewPost={() => this._addButtonPressed()}
         />
       </View>
     )
   }
 
   _addButtonPressed() {
-    if (this.state.user) {
-      console.log('create new post')
-      this.setState({modalVisible: true})
-    } else {
-      console.log('login')
-      this._loginWithAuth0()
-    }
+    this.setState({modalVisible: true})
   }
 
   _onRowSelected = (post) => {

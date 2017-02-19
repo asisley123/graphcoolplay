@@ -8,7 +8,6 @@ import {
   StyleSheet,
   TouchableHighlight,
 } from 'react-native'
-import SvgUri from 'react-native-svg-uri'
 
 
 export default class PostItem extends React.Component {
