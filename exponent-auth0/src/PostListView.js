@@ -74,6 +74,8 @@ class PostListView extends React.Component {
       modalVisible: false,
       user: undefined,
     }
+
+    AsyncStorage.clear()
   }
 
   componentDidMount() {
@@ -112,8 +114,6 @@ class PostListView extends React.Component {
         }
       })
 
-      console.log('posts', posts)
-
       if (!nextProps.fetchAllPosts.loading && !nextProps.fetchAllPosts.error) {
         const {dataSource} = this.state
         this.setState({
@@ -147,7 +147,7 @@ class PostListView extends React.Component {
         <ListView
           enableEmptySections={true}
           dataSource={this.state.dataSource}
-          renderRow={(post, section, row) => {
+          renderRow={(post) => {
             return (<PostItem
               description={post.description}
               imageUrl={post.imageUrl}
@@ -159,7 +159,6 @@ class PostListView extends React.Component {
           }}
         />
         <Button
-          style={styles.addButton}
           text={addButtonText}
           raised={true}
           onPress={() => this._addButtonPressed()}
@@ -214,16 +213,11 @@ class PostListView extends React.Component {
     const decodedToken = jwtDecoder(encodedToken)
     const username = decodedToken.name
 
-    console.log('Store token in AsyncStorage', encodedToken)
-
     AsyncStorage.setItem('token', encodedToken).then(
       result => {
-        console.log('Did store token in AsyncStorage', encodedToken)
-        console.log('Check for current user')
 
-        client.query({query: currentUserQuery}).then(
+        this.props.fetchCurrentUser.refetch().then(
           result => {
-            console.log('got result:', result)
             if (result.data.user) {
               this.setState({
                 user: {
@@ -233,7 +227,8 @@ class PostListView extends React.Component {
               })
             } else {
               this.props.createUser(
-                { variables:
+                {
+                  variables:
                   {
                     encodedToken,
                     username,
@@ -257,10 +252,8 @@ class PostListView extends React.Component {
           },
           failure => {
             console.log('failed asking for current user: ', failure)
-
           }
         )
-
       },
       failure => {
         console.error('ERROR: could not store token in AsyncStorage')
@@ -282,11 +275,11 @@ class PostListView extends React.Component {
 
 const styles = StyleSheet.create({
   addButton: {
-    width: 100,
   }
 })
 
 export default compose(
   graphql(allPostsQuery, { name: 'fetchAllPosts' }),
   graphql(createUserMutation, { name: 'createUser' }),
+  graphql(currentUserQuery, { name: 'fetchCurrentUser' }),
 )(PostListView)

@@ -49,9 +49,6 @@ class PostDetailView extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('PostDetailView - nextProps: ', nextProps.data.allComments)
-  }
 
   async componentDidMount() {
 

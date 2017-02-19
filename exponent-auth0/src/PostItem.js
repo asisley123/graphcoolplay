@@ -30,7 +30,6 @@ export default class PostItem extends React.Component {
       this.setState({width: imageWidth, height: imageHeight})
     })
 
-    // load font
     await Font.loadAsync({
       'open-sans-light': require('../assets/fonts/OpenSans-Light.ttf'),
     })
