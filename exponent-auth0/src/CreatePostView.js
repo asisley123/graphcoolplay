@@ -1,15 +1,7 @@
 import React from 'react'
-import {
-  Text,
-  View,
-  Image,
-  Dimensions,
-  StyleSheet,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native'
-import { Font } from 'exponent'
-import { graphql } from 'react-apollo'
+import {Text, View, Image, Dimensions, StyleSheet, TextInput, TouchableHighlight} from 'react-native'
+import {Font} from 'exponent'
+import {graphql} from 'react-apollo'
 import gql from 'graphql-tag'
 
 const createPostMutation = gql`
@@ -48,8 +40,18 @@ class CreatePostView extends React.Component {
 
         <View style={styles.addImageContainer}>
           <View style={styles.addImage}>
-            <View style={styles.photoPlaceholder} />
-
+            <View style={styles.photoPlaceholderContainer}>
+              {
+                this.state.imageUrl.length > 0 ?
+                  <Image
+                    source={{uri: this.state.imageUrl}}
+                    style={{height: 80, width: 80}}
+                    resizeMode='contain'
+                  />
+                  :
+                  <View style={styles.photoPlaceholder} />
+              }
+            </View>
             {this.state.fontLoaded &&
             <TextInput
               style={styles.imageUrlInput}
@@ -57,19 +59,17 @@ class CreatePostView extends React.Component {
               onChangeText={(text) => this.setState({imageUrl: text})}
               value={this.state.imageUrl}
               placeholderTextColor='rgba(42,126,211,.5)'
-            />
-            }
+            />}
           </View>
         </View>
 
         {this.state.fontLoaded &&
         <TextInput
           style={styles.descriptionInput}
-          placeholder='Type a title...'
+          placeholder='Type a description...'
           onChangeText={(text) => this.setState({description: text})}
           value={this.state.description}
-        />
-        }
+        />}
 
         {this.state.fontLoaded &&
         <View style={styles.buttons}>
@@ -85,20 +85,17 @@ class CreatePostView extends React.Component {
           >
             <Text style={styles.saveButtonText}>Create Post</Text>
           </TouchableHighlight>
-        </View>
-        }
+        </View>}
       </View>
     )
 
   }
 
   _createPost = () => {
-    console.log('create post', description, imageUrl)
     const {description, imageUrl} = this.state
     const createdById = this.props.userId
     this.props.mutate({variables: { description, imageUrl, createdById }})
-      .then((result) => {
-        console.log('result', result)
+      .then(() => {
         this.props.onComplete()
       })
   }
@@ -128,10 +125,14 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingHorizontal: 20,
   },
+  photoPlaceholderContainer: {
+    alignItems: 'center',
+    height: 80,
+  },
   photoPlaceholder: {
-    alignSelf: 'stretch',
     backgroundColor: 'rgba(42,126,211,.1)',
-    height: 250,
+    height: 80,
+    width: 80,
   },
   imageUrlInput: {
     color: 'rgba(42,126,211,1)',

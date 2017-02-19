@@ -1,13 +1,6 @@
 import React from 'react'
-import { Font } from 'exponent'
-import {
-  Text,
-  View,
-  Image,
-  Dimensions,
-  StyleSheet,
-  TouchableHighlight,
-} from 'react-native'
+import {Font} from 'exponent'
+import {Text, View, Image, Dimensions, StyleSheet, TouchableHighlight} from 'react-native'
 
 
 export default class PostItem extends React.Component {
@@ -54,6 +47,7 @@ export default class PostItem extends React.Component {
             <Image
               style={{width, height}}
               source={{uri: this.props.imageUrl}}
+              resizeMode='contain'
             />
           </View>
           {this.state.fontLoaded &&

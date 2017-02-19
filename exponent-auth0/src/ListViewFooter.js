@@ -1,13 +1,6 @@
 import React from 'react'
-import {
-  Text,
-  View,
-  Image,
-  Dimensions,
-  StyleSheet,
-  TouchableHighlight,
-} from 'react-native'
-import { Font } from 'exponent'
+import {Text, View, Image, Dimensions, StyleSheet, TouchableHighlight} from 'react-native'
+import {Font} from 'exponent'
 
 export default class ListViewFooter extends React.Component {
 
@@ -73,6 +66,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
+    fontFamily: 'open-sans-regular'
   }
 })
 

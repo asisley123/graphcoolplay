@@ -1,29 +1,13 @@
-import { graphql, compose } from 'react-apollo'
+import {graphql, compose} from 'react-apollo'
 import gql from 'graphql-tag'
 import React from 'react'
-import {
-  Text,
-  View,
-  ListView,
-  StyleSheet,
-  Modal,
-  TouchableHighlight,
-  Linking,
-  AsyncStorage,
-} from 'react-native'
+import {Text, View, ListView, StyleSheet, Modal, TouchableHighlight, Linking, AsyncStorage} from 'react-native'
 import PostItem from './PostItem'
 import CreatePostView from './CreatePostView'
 import Exponent from 'exponent'
 import jwtDecoder from 'jwt-decode'
-import {
-  redirect_uri,
-  auth0_client_id,
-  authorize_url,
-  client,
-} from '../main'
+import Router, {redirect_uri, auth0_client_id, authorize_url, client} from '../main'
 import ListViewFooter from './ListViewFooter'
-
-import Router from '../main'
 
 const allPostsQuery = gql`
     query allPosts {
@@ -123,9 +107,6 @@ class PostListView extends React.Component {
   }
 
   render() {
-
-    const addButtonText = this.state.user ? 'Create new post' : 'Sign in to create a post'
-
     return (
       <View style={{flex: 1, paddingTop: 22}}>
 
@@ -262,9 +243,6 @@ class PostListView extends React.Component {
 
   }
 
-  /**
-   * Converts an object to a query string.
-   */
   _toQueryString(params) {
     return '?' + Object.entries(params)
         .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
@@ -272,11 +250,6 @@ class PostListView extends React.Component {
   }
 
 }
-
-const styles = StyleSheet.create({
-  addButton: {
-  }
-})
 
 export default compose(
   graphql(allPostsQuery, { name: 'fetchAllPosts' }),

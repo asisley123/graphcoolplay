@@ -1,7 +1,7 @@
 import React from 'react'
 import {Font} from 'exponent'
 import {Text, View, Image, Dimensions, StyleSheet, TouchableHighlight, TextInput} from 'react-native'
-import { graphql } from 'react-apollo'
+import {graphql} from 'react-apollo'
 import gql from 'graphql-tag'
 
 const createCommentMutation = gql`

@@ -1,13 +1,6 @@
 import React from 'react'
-import { Font } from 'exponent'
-import {
-  Text,
-  View,
-  Image,
-  Dimensions,
-  StyleSheet,
-  TouchableHighlight,
-} from 'react-native'
+import {Font} from 'exponent'
+import {Text, View, Image, Dimensions, StyleSheet, TouchableHighlight} from 'react-native'
 import {timeDifference} from './utils'
 
 export default class CommentView extends React.Component {

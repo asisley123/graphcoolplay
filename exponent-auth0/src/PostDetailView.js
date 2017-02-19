@@ -1,18 +1,9 @@
 import React from 'react'
-import { Font } from 'exponent'
-import {
-  Text,
-  View,
-  ScrollView,
-  Image,
-  Dimensions,
-  StyleSheet,
-  TouchableHighlight,
-  Modal,
-} from 'react-native'
+import {Font} from 'exponent'
+import {Text, View, ScrollView, Image, Dimensions, StyleSheet, TouchableHighlight, Modal} from 'react-native'
 import CommentView from './CommentView'
 import CreateCommentView from './CreateCommentView'
-import { graphql } from 'react-apollo'
+import {graphql} from 'react-apollo'
 import gql from 'graphql-tag'
 
 const allCommentsQuery = gql`
