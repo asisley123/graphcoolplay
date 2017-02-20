@@ -1,8 +1,0 @@
-{
-  "exponentServerPort": 19000,
-  "exponentServerNgrokUrl": "https://th-99j.nikolasburk.exponent-auth0-instagram-example.exp.direct",
-  "packagerNgrokUrl": "https://packager.th-99j.nikolasburk.exponent-auth0-instagram-example.exp.direct",
-  "ngrokPid": 33271,
-  "packagerPort": 19001,
-  "packagerPid": 33256
-}
