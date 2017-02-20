@@ -1,6 +1,21 @@
+
+
 # exponent-auth0-instagram-example
 
 Example Instagram app showing how to use [**Exponent (React Native)**](https://docs.getexponent.com/versions/v14.0.0/index.html) and [**Auth0**](https://auth0.com/).
+
+
+
+## Table of Contents
+
+  - [Setup and Installation](#setup-and-installation)
+    1. [Setting up the Graphcool Project](#1-setting-up-the-graphcool-project)
+    2. [Setting up the Auth0 Authentication Provider](#2-setting-up-the-auth0-authentication-provider)
+    3. [Connecting the Exponent app with Auth0](#3-connecting-the-exponent-app-with-auth0)
+  - [Running the App 🚀](#running-the-app-%F0%9F%9A%80)
+  - [Publishing the App](#publishing-the-app)
+  - [Help & Community *](#help--community-)
+
 
 
 ## Setup and Installation
