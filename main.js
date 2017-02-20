@@ -17,14 +17,12 @@ export let redirect_uri
 if (Exponent.Constants.manifest.xde) {
   // replace `<Exponent URL without Port>` with the app's URL when you open it in exponent
   // without the colon and the port
-  redirect_uri = 'exp://da-x7f.nikolasburk.exponent-auth0.exp.direct/+/redirect'
+  redirect_uri = 'exp://th-99j.nikolasburk.exponent-auth0-instagram-example.exp.direct/+/redirect'
 } else {
   redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
 }
 
 export const graphQL_endpoint = 'https://api.graph.cool/simple/v1/ciyzv01u06xq60185dno4c7nu'
-
-
 
 const networkInterface = createNetworkInterface({
   uri: graphQL_endpoint,
@@ -71,7 +69,6 @@ class App extends React.Component {
   }
 
 }
-
 
 Exponent.registerRootComponent(App)
 
