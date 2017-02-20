@@ -7,7 +7,7 @@ import PostListView from './src/PostListView'
 import PostDetailView from './src/PostDetailView'
 import {createRouter, NavigationProvider, StackNavigation} from '@exponent/ex-navigation'
 
-// refer to the README that explains how to set the following vaqriables
+// Refer to the README that explains how to set the following variables
 export const auth0_client_id = 'uLSnQEYIghkTAzRwst7bsm0SucHulkXV'
 export const authorize_url = 'https://nikolasburk.eu.auth0.com/authorize'
 
