@@ -12,7 +12,7 @@ To set up the project in the backend, there are two options:
 1. _Automatic setup_ through import of a [schema](https://www.graph.cool/docs/reference/platform/data-schema-ahwoh2fohj) file
 2. _Manual setup_ in the [Graphcool console](https://console.graph.cool)
 
-###  Automatic Setup (Option 1)
+####  Automatic Setup (Option 1)
 
 You can comfortably set up the project from the command line, just download [this schema file](https://raw.githubusercontent.com/graphcool-examples/exponent-auth0-instagram-example/master/Instagram.schema) and run the following command in your terminal:
 
@@ -53,7 +53,7 @@ type Comment {
 ```
 
 
-### Manual Setup (Option 2)
+#### Manual Setup (Option 2)
 		
 <details>
  <summary>See more</summary>
