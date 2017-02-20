@@ -22,12 +22,12 @@ if (Exponent.Constants.manifest.xde) {
   redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
 }
 
-export const graphQLEndpoint = 'https://api.graph.cool/simple/v1/ciyzv01u06xq60185dno4c7nu'
+export const graphQL_endpoint = 'https://api.graph.cool/simple/v1/ciyzv01u06xq60185dno4c7nu'
 
 
 
 const networkInterface = createNetworkInterface({
-  uri: graphQLEndpoint,
+  uri: graphQL_endpoint,
 })
 
 networkInterface.use([{
