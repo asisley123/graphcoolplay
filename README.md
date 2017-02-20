@@ -1,6 +1,6 @@
 # exponent-auth0-instagram-example
 
-This repository contains an Instagram clone using [**Exponent (React Native)**](https://docs.getexponent.com/versions/v14.0.0/index.html) and [**auth0**](https://auth0.com/) as an authentication provider. 
+This repository contains the code for an Instagram clone using [**Exponent (React Native)**](https://docs.getexponent.com/versions/v14.0.0/index.html) and [**auth0**](https://auth0.com/) as an authentication provider. 
 
 
 ## Setup and Installation
@@ -14,13 +14,13 @@ To set up the project in the backend, there are two options:
 
 ###  Automatic Setup (Option 1)
 
-You can comfortably set up the project from the command line, just download [this schema file]() and run the following command in your terminal:
+You can comfortably set up the project from the command line, just download [this schema file](https://raw.githubusercontent.com/graphcool-examples/exponent-auth0-instagram-example/master/Instagram.schema) and run the following command in your terminal:
 
 ```sh
 graphcool create Instagram.schema
 ```
 
-The schema defines the following data model:
+This will create a Graphcool project named `Instagram` including the following data model:
 
 ```graphql
 type User {
@@ -82,7 +82,7 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 
 	    
 	    
-### 3. Setting up the Auth0 Authentication Provider
+### 2. Setting up the Auth0 Authentication Provider
 
 1. Navigate to [https://auth0.com/](https://auth0.com/), sign in and create a **New Client** of type **Single Page Web Applications** named `instagram-example-graphcool`
 
@@ -95,10 +95,10 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 
 	3. Copy and paste the `Domain`, `Client Id` and `Client Secret` over from the Client info section in the Auth0 dashboard into the corresponding fields in the Auth0 integration popup and click **Enable**
 
-![](./img/auth0-02.png)
+![](http://imgur.com/jUD7sHQ.png)
 
 
-### 4. Connecting the Exponent app with Auth0
+### 3. Connecting the Exponent app with Auth0
 
 1. First clone this repository on your local machine and install the project dependencies 
  
@@ -117,12 +117,18 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 5. Set the variable `graphQL_endpoint` by replacing `<Graphcool Project Id>` with the Project Id of the `Instagram` project which you find in the [Graphcool console](https://console.graph.cool) if you select the `Instagram` project in the left side-menu and then navigate to **Settings --> General** (it will then look similar to: `https://api.graph.cool/simple/v1/ciyzv01u06cq60185dno8c7nu`)
 
 6. Finally, we need to configure the Auth0 redirect flow with the exponent app in order to set the last variable which is the `redirect_uri`:
+
    1. If you haven't done so already, download the [Exponent development environment](https://docs.getexponent.com/versions/v14.0.0/introduction/installation.html) (**XDE**) open it and sign in
+  
    2. Open this project by clicking **Project** on the top-left and selecting the directory `exponent-auth0` (note that this is **not** the _root directory_ of this repository which is called `exponent-auth0-instagram-example`)
+
    3. Now, from the exponent URL that you see in the address bar on top, copy everything **except for the colon and port** as shown in this screenshot:
   	 ![](http://i.imgur.com/8f0qPdg.png)
+  	
   	4. Again, in `main.js`, set the `redirect_uri` variable by replacing the part `<Exponent URL without Port>` with the value you just copied; note that you need to do this in the first part of the `if`-clause - the `else`-part is for the case where the app has been published, then Exponent will set the variable for you 
+  
   	5. Lastly, back on the config page of the `instagram-example-graphcool` client on the [Auth0 website](https://manage.auth0.com/#/clients) copy the _full value_ of `redirect_uri` from `main.js` into the field **Allowed Callback URLs** (it will look similar to `exp://da-x7f.johndoe.exponent-auth0.exp.direct/+/redirect`)
+  
   	6. Make sure to click **Save Changes** on the bottom of the page
 
 

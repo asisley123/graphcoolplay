@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,.07)'
   },
   titleContainer: {
     flex: 1,

@@ -94,17 +94,13 @@ class CreateCommentView extends React.Component {
       updateQueries: {
         allPosts: (previousQueryResult, { mutationResult }) => {
           const newPosts = previousQueryResult.allPosts.slice()
-          console.log('newPosts', newPosts)
           const post = newPosts.find(post => post.id === postId)
-          console.log('post', post)
-          // post.comments.push(mutationResult.data.createComment)
           return {
             allPosts: newPosts,
           }
         }
       },
     }).then((result) => {
-        console.log('result', result)
         this.props.onComplete()
       })
   }

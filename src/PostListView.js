@@ -173,13 +173,10 @@ class PostListView extends React.Component {
         redirect_uri,
         state: redirect_uri,
       })
-    console.log('redirect: ', redirectionURL)
     Exponent.WebBrowser.openBrowserAsync(redirectionURL)
   }
 
   _handleAuth0Redirect = async (event) => {
-
-    console.log('_handleAuth0Redirect')
     if (!event.url.includes('+/redirect')) {
       return
     }
@@ -217,7 +214,6 @@ class PostListView extends React.Component {
                 }
               ).then(
                 result => {
-                  console.log('did create user: ', result)
                   this.setState({
                     user: {
                       name: result.data.createUser.name,
@@ -226,13 +222,13 @@ class PostListView extends React.Component {
                   })
                 },
                 failure => {
-                  console.log('could not create user: ', failure)
+                  console.error('ERROR: could not create user: ', failure)
                 }
               )
             }
           },
           failure => {
-            console.log('failed asking for current user: ', failure)
+            console.error('ERROR: failed asking for current user: ', failure)
           }
         )
       },
