@@ -27,7 +27,7 @@ In the following, we will explain both approaches, you can chose whichever you p
 ![](./img/comment.png)
 
 
-##### Import a Schema File (Option 1)
+#### Import a Schema File (Option 1)
 
 ```graphql
 
@@ -62,7 +62,7 @@ type Comment {
 ```
 
 
-##### Creating the Data Model manually (Option 2)
+#### Creating the Data Model manually (Option 2)
 
 1. Create the following _models_ in the [Graphcool console](https://console.graph.cool):
 	1. A _model_ called `Post` with _fields_ `description` and `imageUrl`, both of type `String`
