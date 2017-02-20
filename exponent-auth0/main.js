@@ -7,16 +7,16 @@ import PostListView from './src/PostListView'
 import PostDetailView from './src/PostDetailView'
 import {createRouter, NavigationProvider, StackNavigation} from '@exponent/ex-navigation'
 
+
 // Refer to the README that explains how to set the following variables
+
 export const auth0_client_id = 'uLSnQEYIghkTAzRwst7bsm0SucHulkXV'
 export const authorize_url = 'https://nikolasburk.eu.auth0.com/authorize'
 
 export let redirect_uri
 if (Exponent.Constants.manifest.xde) {
-  // Hi there, dear reader!
-  // This value needs to be the tunnel url for your local Exponent project.
-  // It also needs to be listed in valid callback urls of your Auth0 Client
-  // Settings. See the README for more information.
+  // replace `<Exponent URL without Port>` with the app's URL when you open it in exponent
+  // without the colon and the port
   redirect_uri = 'exp://da-x7f.nikolasburk.exponent-auth0.exp.direct/+/redirect'
 } else {
   redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
