@@ -19,16 +19,6 @@ For creating the data model of your `Instagram` application, you have two differ
 
 In the following, we will explain both approaches, you can chose whichever you prefer. In any case, after you're done with the process, your _models_ should look as follows: 
 
-##### User
-![](./img/user.png)
- (note that the field `auth0userId` will only be added after we set up Auth0 as an _authentication provider_, so it's fine if you don't see that field in your `User` _model_ yet)
- 
-##### Post 
-![](./img/post.png)
-
-##### Comment
-![](./img/comment.png)
-
 
 #### Import a Schema File (Option 1)
 
@@ -138,7 +128,7 @@ If you'd like to know more about how the Auth0 flow works with Exponent from a t
 
 ## Publishing the App
 
-If you want to make your app accessible to other Exponent users, or even publish it on the App Store, you will need to add another url to the field **Allowed Callback URLs** in the **config page** of your Auth0 client on the [Auth0 website](https://manage.auth0.com/#/clients). This URL looks as follows: `https://exp.host/<Your Exponent Username>/<Your Exponent App>/+/redirect`.
+If you want to make your app accessible to other Exponent users, or even publish it on the App Store, you will need to add another url to the field **Allowed Callback URLs** in the config page of your Auth0 client on the [Auth0 website](https://manage.auth0.com/#/clients). This URL has the following structure: `exp://exp.host/@<Your Exponent Username>/<Your Exponent App>/+/redirect` (so it will look similar to this: `exp://exp.host/@johndoe/exponent-auth0/+/redirect`)
 
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
