@@ -82,8 +82,9 @@ type Comment {
 ### 3. Setting up the Auth0 Authentication Provider
 
 1. Navigate to [https://auth0.com/](https://auth0.com/), sign in and create a **New Client** of type **Single Page Web Applications** named `instagram-example-graphcool`
-  	 ![](./img/auth0-01.png)
+
 2. Open the info for the new client by clicking **Clients** in the left side-menu and selecting the `instagram-example-graphcool` client you just created, this page displays the `Domain`, `Client ID` and the `Client Secret` which you will need in a minute when setting up Auth0 in the Graphcool backend
+
 3. Back in the [Graphcool console](https://console.graph.cool), enable Auth0 as an _authentication provider_ for the `Instagram` app:
 	1. Click on **Integrations** in the left side-menu
 	2. Select the **Auth0** integration
