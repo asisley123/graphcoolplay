@@ -8,22 +8,26 @@ import PostDetailView from './src/PostDetailView'
 import {createRouter, NavigationProvider, StackNavigation} from '@exponent/ex-navigation'
 
 
-// refer to the README that explains how to set the following vaqriables
-export const auth0_client_id = 'uLSnQEYIghkTAzRwst7bsm0SucHulkXV'
-export const authorize_url = 'https://nikolasburk.eu.auth0.com/authorize'
-// export const redirect_uri = 'exp://da-x7f.nikolasburk.exponent-auth0.exp.direct/+/redirect'
-let redirectUri
-if (Exponent.Constants.manifest.xde) {
-  // Hi there, dear reader!
-  // This value needs to be the tunnel url for your local Exponent project.
-  // It also needs to be listed in valid callback urls of your Auth0 Client
-  // Settings. See the README for more information.
-  redirect_uri = 'exp://da-x7f.nikolasburk.exponent-auth0.exp.direct/+/redirect'
-} else {
-  redirectUri = `${Exponent.Constants.linkingUri}/redirect`
-}
+// Refer to the README that explains how to set the following variables:
 
-export const graphQLEndpoint = 'https://api.graph.cool/simple/v1/ciyzv01u06xq60185dno4c7nu'
+// replace `<Client Id>` with your personal Auth0 Client Id
+export const auth0_client_id = '<Client Id>'
+
+// replace `<Domain>` with your Auth0 Domain
+export const authorize_url = 'https://<Domain>/authorize'
+
+// replace `<Graphcool Project Id>` with the Project Id of the Instagram project that you find
+// in the Graphcool console in Settings --> General
+export const graphQL_endpoint = 'https://api.graph.cool/simple/v1/<Graphcool Project Id>'
+
+if (Exponent.Constants.manifest.xde) {
+  // replace `<Exponent URL without Port>` with the app's URL when you open it in exponent
+  // without the colon and the port
+  redirect_uri = '<Exponent URL without Port>/+/redirect'
+} else {
+  // this URL will be used when you publish your app
+  redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
+}
 
 
 
