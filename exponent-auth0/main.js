@@ -5,13 +5,10 @@ import ApolloClient, {createNetworkInterface} from 'apollo-client'
 import {ApolloProvider} from 'react-apollo'
 import PostListView from './src/PostListView'
 import PostDetailView from './src/PostDetailView'
+import {createRouter, NavigationProvider, StackNavigation} from '@exponent/ex-navigation'
 
-import {
-  createRouter,
-  NavigationProvider,
-  StackNavigation,
-} from '@exponent/ex-navigation'
 
+// refer to the README that explains how to set the following vaqriables
 export const auth0_client_id = 'uLSnQEYIghkTAzRwst7bsm0SucHulkXV'
 export const authorize_url = 'https://nikolasburk.eu.auth0.com/authorize'
 // export const redirect_uri = 'exp://da-x7f.nikolasburk.exponent-auth0.exp.direct/+/redirect'
