@@ -5,32 +5,31 @@ This repository contains an Instagram clone using [**Exponent (React Native)**](
 
 ## Setup and Installation
 
-### 1. Creating the Graphcool project
+### 1. Setting up the Graphcool Project
 
-In the [Graphcool console](https://console.graph.cool), create a new Graphcool project and call it `Instagram`
+To set up the project in the backend, there are two options:
 
+1. Automatic setup through import of a [schema](https://www.graph.cool/docs/reference/platform/data-schema-ahwoh2fohj) file
+2. Manual setup in the [Graphcool console](https://console.graph.cool)
 
-### 2. Creating the Data Model
+###  Automatic Setup (Option 1)
 
-For creating the data model of your `Instagram` application, you have two different options:
+You can comfortably set up the project from the command line, just download [this schema file]() and run the following command in your terminal:
 
-1. Import a [schema file]() into Graphcool that contains all necessary information about the data model
-2. Create the data model manually in the [Graphcool console](https://console.graph.cool)
+```sh
+graphcool create Instagram.schema
+```
 
-In the following, we will explain both approaches, you can chose whichever you prefer. In any case, after you're done with the process, your _models_ should look as follows: 
-
-
-#### Import a Schema File (Option 1)
+The schema defines the following data model:
 
 ```graphql
-
 type User {
 	id: ID!
 	createdAt: DateTime!
 	updateAt: DateTime!
-	posts: [Post]!
+	posts: [Post!]!  @relation(name: "PostsByUser")
 	name: String!
-	comments: [Comment]!
+	comments: [Comment!]! @relation(name: "CommentsByUser")
 }
 
 type Post {
@@ -39,8 +38,8 @@ type Post {
 	updatedAt: DateTime!
 	description: String!
 	imageUrl: String!
-	createdBy: User!
-	comments: [Comment]!
+	createdBy: User!  @relation(name: "PostsByUser")
+	comments: [Comment!]! @relation(name: "CommentsOnPost")
 }
 
 type Comment {
@@ -48,14 +47,22 @@ type Comment {
 	createdAt: DateTime!
 	updatedAt: DateTime!
 	content: String!
-	post: Post!
-	author: User!
+	post: Post! @relation(name: "CommentsOnPost")
+	author: User! @relation(name: "CommentsByUser")
 }
-
 ```
 
 
-#### Creating the Data Model manually (Option 2)
+### Manual Setup (Option 2)
+		
+<details>
+ <summary>See more</summary>
+
+#### 1. Creating the Graphcool Project
+
+In the [Graphcool console](https://console.graph.cool), create a new project and call it `Instagram`
+
+#### 2. Creating the Data Model
 
 1. Create the following _models_ in the [Graphcool console](https://console.graph.cool):
 	1. A _model_ called `Post` with _fields_ `description` and `imageUrl`, both of type `String`
@@ -63,14 +70,14 @@ type Comment {
 
 2. Create the following _relations_:
 	1. A _relation_ called `PostsByUser` that looks as follows:
-		![](./img/postsbyuser.png)
-		
-<details>
- <summary>See all steps</summary>
+		![](http://i.imgur.com/V0ssAAX.png)
+
 	2. A _relation_ called `CommentsOnPost` that looks as follows:
-	    ![](./img/commentsonpost.png)
-	3. A _relation_ called `CommentsOnPost` that looks as follows:
-	    ![](./img/commentsonpost.png)
+	    ![](http://i.imgur.com/OTKM5u9.png)
+	    
+	3. A _relation_ called `CommentsByUser` that looks as follows:
+	    ![](http://imgur.com/csixC3B.png)
+
 </details>
 
 	    
@@ -113,7 +120,7 @@ type Comment {
    1. If you haven't done so already, download the [Exponent development environment](https://docs.getexponent.com/versions/v14.0.0/introduction/installation.html) (**XDE**) open it and sign in
    2. Open this project by clicking **Project** on the top-left and selecting the directory `exponent-auth0` (note that this is **not** the _root directory_ of this repository which is called `exponent-auth0-instagram-example`)
    3. Now, from the exponent URL that you see in the address bar on top, copy everything **except for the colon and port** as shown in this screenshot:
-  	 ![](./img/auth0-03.png)
+  	 ![](http://i.imgur.com/8f0qPdg.png)
   	4. Again, in `main.js`, set the `redirect_uri` variable by replacing the part `<Exponent URL without Port>` with the value you just copied; note that you need to do this in the first part of the `if`-clause - the `else`-part is for the case where the app has been published, then Exponent will set the variable for you 
   	5. Lastly, back on the config page of the `instagram-example-graphcool` client on the [Auth0 website](https://manage.auth0.com/#/clients) copy the _full value_ of `redirect_uri` from `main.js` into the field **Allowed Callback URLs** (it will look similar to `exp://da-x7f.johndoe.exponent-auth0.exp.direct/+/redirect`)
   	6. Make sure to click **Save Changes** on the bottom of the page
