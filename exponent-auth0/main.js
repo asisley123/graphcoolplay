@@ -20,6 +20,7 @@ export const authorize_url = 'https://<Domain>/authorize'
 // in the Graphcool console in Settings --> General
 export const graphQL_endpoint = 'https://api.graph.cool/simple/v1/<Graphcool Project Id>'
 
+export let redirect_uri
 if (Exponent.Constants.manifest.xde) {
   // replace `<Exponent URL without Port>` with the app's URL when you open it in exponent
   // without the colon and the port
