@@ -12,10 +12,23 @@ import {
   StackNavigation,
 } from '@exponent/ex-navigation'
 
-export const redirect_uri = 'exp://da-x7f.nikolasburk.exponent-auth0.exp.direct/+/redirect'
 export const auth0_client_id = 'uLSnQEYIghkTAzRwst7bsm0SucHulkXV'
 export const authorize_url = 'https://nikolasburk.eu.auth0.com/authorize'
+// export const redirect_uri = 'exp://da-x7f.nikolasburk.exponent-auth0.exp.direct/+/redirect'
+let redirectUri
+if (Exponent.Constants.manifest.xde) {
+  // Hi there, dear reader!
+  // This value needs to be the tunnel url for your local Exponent project.
+  // It also needs to be listed in valid callback urls of your Auth0 Client
+  // Settings. See the README for more information.
+  redirect_uri = 'exp://da-x7f.nikolasburk.exponent-auth0.exp.direct/+/redirect'
+} else {
+  redirectUri = `${Exponent.Constants.linkingUri}/redirect`
+}
+
 export const graphQLEndpoint = 'https://api.graph.cool/simple/v1/ciyzv01u06xq60185dno4c7nu'
+
+
 
 const networkInterface = createNetworkInterface({
   uri: graphQLEndpoint,
@@ -26,8 +39,6 @@ networkInterface.use([{
     if (!req.options.headers) {
       req.options.headers = {}  // Create the header object if needed.
     }
-
-    console.log('send request', req)
 
     AsyncStorage.getItem('token').then(
       encodedToken => {
