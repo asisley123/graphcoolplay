@@ -20,7 +20,7 @@ Example Instagram app showing how to use [**Exponent (React Native)**](https://d
  
   - [Publishing the App](#publishing-the-app)
  
-  - [Help & Community *](#help--community-)
+  - [Help & Community](#help--community-)
 
 
 
