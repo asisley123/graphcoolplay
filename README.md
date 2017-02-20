@@ -1,6 +1,6 @@
 # exponent-auth0-instagram-example
 
-This repository contains the code for an Instagram clone using [**Exponent (React Native)**](https://docs.getexponent.com/versions/v14.0.0/index.html) and [**auth0**](https://auth0.com/) as an authentication provider. 
+Example Instagram app showing how to use [**Exponent (React Native)**](https://docs.getexponent.com/versions/v14.0.0/index.html) and [**auth0**](https://auth0.com/) as an authentication provider.
 
 
 ## Setup and Installation
