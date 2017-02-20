@@ -112,7 +112,7 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 2. Open `main.js` and find the top section right below the imports where we define the variables we need in order to connect to Auth0 and Graphcool
 		
 	<details>
-	<summary>See what that section looks like</summary>
+		<summary>See what that section looks like</summary>
 ```js		
 // replace `<Client Id>` with your personal Auth0 Client Id
 export const auth0_client_id = '<Client Id>'
