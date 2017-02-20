@@ -32,7 +32,7 @@ if (Exponent.Constants.manifest.xde) {
 
 
 const networkInterface = createNetworkInterface({
-  uri: graphQLEndpoint,
+  uri: graphQL_endpoint,
 })
 
 networkInterface.use([{
