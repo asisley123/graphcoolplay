@@ -19,7 +19,7 @@ if (Exponent.Constants.manifest.xde) {
   // Settings. See the README for more information.
   redirect_uri = 'exp://da-x7f.nikolasburk.exponent-auth0.exp.direct/+/redirect'
 } else {
-  redirectUri = `${Exponent.Constants.linkingUri}/redirect`
+  redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
 }
 
 export const graphQLEndpoint = 'https://api.graph.cool/simple/v1/ciyzv01u06xq60185dno4c7nu'
