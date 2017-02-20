@@ -10,8 +10,8 @@ import {createRouter, NavigationProvider, StackNavigation} from '@exponent/ex-na
 // refer to the README that explains how to set the following vaqriables
 export const auth0_client_id = 'uLSnQEYIghkTAzRwst7bsm0SucHulkXV'
 export const authorize_url = 'https://nikolasburk.eu.auth0.com/authorize'
-// export const redirect_uri = 'exp://da-x7f.nikolasburk.exponent-auth0.exp.direct/+/redirect'
-let redirectUri
+
+export let redirect_uri
 if (Exponent.Constants.manifest.xde) {
   // Hi there, dear reader!
   // This value needs to be the tunnel url for your local Exponent project.
