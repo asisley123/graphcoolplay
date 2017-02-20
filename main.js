@@ -10,19 +10,26 @@ import {createRouter, NavigationProvider, StackNavigation} from '@exponent/ex-na
 
 // Refer to the README that explains how to set the following variables
 
-export const auth0_client_id = 'uLSnQEYIghkTAzRwst7bsm0SucHulkXV'
-export const authorize_url = 'https://nikolasburk.eu.auth0.com/authorize'
+// replace `<Client Id>` with your personal Auth0 Client Id
+export const auth0_client_id = '<Client Id>'
+
+// replace `<Domain>` with your Auth0 Domain
+export const authorize_url = 'https://<Domain>/authorize'
+
+// replace `<Graphcool Project Id>` with the Project Id of the Instagram project that you find
+// in the Graphcool console in Settings --> General
+export const graphQL_endpoint = 'https://api.graph.cool/simple/v1/<Graphcool Project Id>'
 
 export let redirect_uri
 if (Exponent.Constants.manifest.xde) {
   // replace `<Exponent URL without Port>` with the app's URL when you open it in exponent
   // without the colon and the port
-  redirect_uri = 'exp://th-99j.nikolasburk.exponent-auth0-instagram-example.exp.direct/+/redirect'
+  redirect_uri = '<Exponent URL without Port>/+/redirect'
 } else {
+  // this URL will be used when you publish your app
   redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
 }
 
-export const graphQL_endpoint = 'https://api.graph.cool/simple/v1/ciyzv01u06xq60185dno4c7nu'
 
 const networkInterface = createNetworkInterface({
   uri: graphQL_endpoint,

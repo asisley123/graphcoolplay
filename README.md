@@ -9,8 +9,8 @@ This repository contains the code for an Instagram clone using [**Exponent (Reac
 
 To set up the project in the backend, there are two options:
 
-1. Automatic setup through import of a [schema](https://www.graph.cool/docs/reference/platform/data-schema-ahwoh2fohj) file
-2. Manual setup in the [Graphcool console](https://console.graph.cool)
+1. _Automatic setup_ through import of a [schema](https://www.graph.cool/docs/reference/platform/data-schema-ahwoh2fohj) file
+2. _Manual setup_ in the [Graphcool console](https://console.graph.cool)
 
 ###  Automatic Setup (Option 1)
 
@@ -57,12 +57,14 @@ type Comment {
 		
 <details>
  <summary>See more</summary>
+ 
+Alternatively, you can create the project and the data model by hand. Follow these steps in order to do so:
 
-#### 1. Creating the Graphcool Project
+#### Creating the Graphcool Project
 
 In the [Graphcool console](https://console.graph.cool), create a new project and call it `Instagram`
 
-#### 2. Creating the Data Model
+#### Creating the Data Model
 
 1. Create the following _models_ in the [Graphcool console](https://console.graph.cool):
 	1. A _model_ called `Post` with _fields_ `description` and `imageUrl`, both of type `String`
@@ -104,8 +106,7 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
  
 	```
 	git clone https://github.com/graphcool-examples/exponent-auth0-instagram-example.git
-	cd exponent-auth0
-	npm install # or yarn install
+	yarn install
 	```
 
 2. Open `main.js` 
@@ -120,7 +121,7 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 
    1. If you haven't done so already, download the [Exponent development environment](https://docs.getexponent.com/versions/v14.0.0/introduction/installation.html) (**XDE**) open it and sign in
   
-   2. Open this project by clicking **Project** on the top-left and selecting the directory `exponent-auth0` (note that this is **not** the _root directory_ of this repository which is called `exponent-auth0-instagram-example`)
+   2. Open this project by clicking **Project** on the top-left and selecting the directory `exponent-auth0-instagram-example`
 
    3. Now, from the exponent URL that you see in the address bar on top, copy everything **except for the colon and port** as shown in this screenshot:
   	 ![](http://i.imgur.com/8f0qPdg.png)
