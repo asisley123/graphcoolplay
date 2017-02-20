@@ -123,6 +123,11 @@ If you'd like to know more about how the Auth0 flow works with Exponent from a t
 If you want to make your app accessible to other Exponent users, or even publish it on the App Store, you will need to add another url to the field **Allowed Callback URLs** in the **config page** of your Auth0 client on the [Auth0 website](https://manage.auth0.com/#/clients). This URL looks as follows: `https://exp.host/<Your Exponent Username>/<Your Exponent App>/+/redirect`.
 
 
+## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
+
+Join our [Slack community](http://slack.graph.cool/) if you run into issues or have questions. We love talking to you!
+
+![](http://i.imgur.com/5RHR6Ku.png)
 
 
 
