@@ -74,10 +74,15 @@ type Comment {
 2. Create the following _relations_:
 	1. A _relation_ called `PostsByUser` that looks as follows:
 		![](./img/postsbyuser.png)
+		
+<details>
+ <summary>See all steps</summary>
 	2. A _relation_ called `CommentsOnPost` that looks as follows:
 	    ![](./img/commentsonpost.png)
 	3. A _relation_ called `CommentsOnPost` that looks as follows:
 	    ![](./img/commentsonpost.png)
+</details>
+
 	    
 	    
 ### 3. Setting up the Auth0 Authentication Provider
