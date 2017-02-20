@@ -27,7 +27,7 @@ type User {
 	id: ID!
 	createdAt: DateTime!
 	updateAt: DateTime!
-	posts: [Post!]!  @relation(name: "PostsByUser")
+	posts: [Post!]! @relation(name: "PostsByUser")
 	name: String!
 	comments: [Comment!]! @relation(name: "CommentsByUser")
 }
@@ -38,7 +38,7 @@ type Post {
 	updatedAt: DateTime!
 	description: String!
 	imageUrl: String!
-	createdBy: User!  @relation(name: "PostsByUser")
+	createdBy: User! @relation(name: "PostsByUser")
 	comments: [Comment!]! @relation(name: "CommentsOnPost")
 }
 
@@ -112,28 +112,28 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 2. Open `main.js` and find the top section right below the imports where we define the variables we need in order to connect to Auth0 and Graphcool
 		
 	<details>
-	 <summary>See what that section looks like</summary>
-	 ```js		
-		// replace `<Client Id>` with your personal Auth0 Client Id
-		export const auth0_client_id = '<Client Id>'
-		
-		// replace `<Domain>` with your Auth0 Domain
-		export const authorize_url = 'https://<Domain>/authorize'
-		
-		// replace `<Graphcool Project Id>` with the Project Id of the Instagram project that you find
-		// in the Graphcool console in Settings --> General
-		export const graphQL_endpoint = 'https://api.graph.cool/simple/v1/<Graphcool Project Id>'
-		
-		export let redirect_uri
-		if (Exponent.Constants.manifest.xde) {
-		  // replace `<Exponent URL without Port>` with the app's URL when you open it in exponent
-		  // without the colon and the port
-		  redirect_uri = '<Exponent URL without Port>/+/redirect'
-		} else {
-		  // this URL will be used when you publish your app
-		  redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
-		}
-	```
+		<summary>See what that section looks like</summary>
+```js		
+// replace `<Client Id>` with your personal Auth0 Client Id
+export const auth0_client_id = '<Client Id>'
+	
+// replace `<Domain>` with your Auth0 Domain
+export const authorize_url = 'https://<Domain>/authorize'
+	
+// replace `<Graphcool Project Id>` with the Project Id of the Instagram project that you find
+// in the Graphcool console in Settings --> General
+export const graphQL_endpoint = 'https://api.graph.cool/simple/v1/<Graphcool Project Id>'
+	
+export let redirect_uri
+if (Exponent.Constants.manifest.xde) {
+  // replace `<Exponent URL without Port>` with the app's URL when you open it in exponent
+  // without the colon and the port
+  redirect_uri = '<Exponent URL without Port>/+/redirect'
+} else {
+  // this URL will be used when you publish your app
+  redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
+}
+```
 	</details>
 
 3. Set the variable `auth0_client_id` by completely replacing the current value of the variable with your `Client Id` from before 
@@ -169,7 +169,9 @@ If you'd like to know more about how the Auth0 flow works with Exponent from a t
 
 ## Publishing the App
 
-In case you want to make your app accessible to other Exponent users, or even publish it on the App Store, you will need to add another url to the field **Allowed Callback URLs** in the config page of your Auth0 client on the [Auth0 website](https://manage.auth0.com/#/clients). This URL has the following structure: `exp://exp.host/@<Your Exponent Username>/<Your Exponent App>/+/redirect` (so it will look similar to this: `exp://exp.host/@johndoe/exponent-auth0/+/redirect`)
+In case you want to make your app accessible to other Exponent users, or even publish it on the App Store, you will need to add another url to the field **Allowed Callback URLs** in the config page of your Auth0 client on the [Auth0 website](https://manage.auth0.com/#/clients). 
+
+This URL will have the following structure: `exp://exp.host/@<Your Exponent Username>/<Your Exponent App>/+/redirect` (so it will look similar to this one: `exp://exp.host/@johndoe/exponent-auth0/+/redirect`)
 
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
