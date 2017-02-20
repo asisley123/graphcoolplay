@@ -19,11 +19,14 @@ For creating the data model of your `Instagram` application, you have two differ
 
 In the following, we will explain both approaches, you can chose whichever you prefer. In any case, after you're done with the process, your _models_ should look as follows: 
 
+##### User
 ![](./img/user.png)
  (note that the field `auth0userId` will only be added after we set up Auth0 as an _authentication provider_, so it's fine if you don't see that field in your `User` _model_ yet)
  
+##### Post 
 ![](./img/post.png)
 
+##### Comment
 ![](./img/comment.png)
 
 
