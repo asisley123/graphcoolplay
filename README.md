@@ -113,7 +113,7 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 		
 	<details>
 	 <summary>See what that section looks like</summary>
-			
+	 ```js		
 		// replace `<Client Id>` with your personal Auth0 Client Id
 		export const auth0_client_id = '<Client Id>'
 		
@@ -133,6 +133,7 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 		  // this URL will be used when you publish your app
 		  redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
 		}
+	```
 	</details>
 
 3. Set the variable `auth0_client_id` by completely replacing the current value of the variable with your `Client Id` from before 
