@@ -72,13 +72,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleContainer: {
-    height: 100,
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 25,
+    paddingVertical: 25,
   },
   title: {
-    marginTop:12,
     fontFamily: 'open-sans-light',
     color: 'rgba(0,0,0,.8)',
     fontWeight: '300',

@@ -7,7 +7,6 @@ import PostListView from './src/PostListView'
 import PostDetailView from './src/PostDetailView'
 import {createRouter, NavigationProvider, StackNavigation} from '@exponent/ex-navigation'
 
-
 // Refer to the README that explains how to set the following variables:
 
 // replace `<Client Id>` with your personal Auth0 Client Id
