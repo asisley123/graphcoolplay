@@ -5,12 +5,12 @@ This repository contains an Instagram clone using [**Exponent (React Native)**](
 
 ## Setup and Installation
 
-### Creating the Graphcool project
+### 1. Creating the Graphcool project
 
 In the [Graphcool console](https://console.graph.cool), create a new Graphcool project and call it `Instagram`
 
 
-### Creating the Data Model
+### 2. Creating the Data Model
 
 For creating the data model of your `Instagram` application, you have two different options:
 
@@ -76,7 +76,7 @@ type Comment {
 	    ![](./img/commentsonpost.png)
 	    
 	    
-### Setting up the Auth0 Authentication Provider
+### 3. Setting up the Auth0 Authentication Provider
 
 1. Navigate to [https://auth0.com/](https://auth0.com/), sign in and create a **New Client** of type **Single Page Web Applications** named `instagram-example-graphcool`
   	 ![](./img/auth0-01.png)
@@ -88,7 +88,7 @@ type Comment {
   	 ![](./img/auth0-02.png)
 
 
-### Connecting the Exponent app with Auth0
+### 4. Connecting the Exponent app with Auth0
 
 1. First clone this repository on your local machine and install the project dependencies 
  
