@@ -1,5 +1,4 @@
 node_modules/**/*
-../.exponent/*
 .exponent/*
 npm-debug.*
 .idea
