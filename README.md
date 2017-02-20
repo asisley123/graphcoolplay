@@ -112,28 +112,28 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 2. Open `main.js` and find the top section right below the imports where we define the variables we need in order to connect to Auth0 and Graphcool
 		
 	<details>
-		<summary>See what that section looks like</summary>
-```js		
-// replace `<Client Id>` with your personal Auth0 Client Id
-export const auth0_client_id = '<Client Id>'
-	
-// replace `<Domain>` with your Auth0 Domain
-export const authorize_url = 'https://<Domain>/authorize'
-	
-// replace `<Graphcool Project Id>` with the Project Id of the Instagram project that you find
-// in the Graphcool console in Settings --> General
-export const graphQL_endpoint = 'https://api.graph.cool/simple/v1/<Graphcool Project Id>'
-	
-export let redirect_uri
-if (Exponent.Constants.manifest.xde) {
-  // replace `<Exponent URL without Port>` with the app's URL when you open it in exponent
-  // without the colon and the port
-  redirect_uri = '<Exponent URL without Port>/+/redirect'
-} else {
-  // this URL will be used when you publish your app
-  redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
-}
-```
+	 <summary>See what that section looks like</summary>
+	 ```js		
+		// replace `<Client Id>` with your personal Auth0 Client Id
+		export const auth0_client_id = '<Client Id>'
+		
+		// replace `<Domain>` with your Auth0 Domain
+		export const authorize_url = 'https://<Domain>/authorize'
+		
+		// replace `<Graphcool Project Id>` with the Project Id of the Instagram project that you find
+		// in the Graphcool console in Settings --> General
+		export const graphQL_endpoint = 'https://api.graph.cool/simple/v1/<Graphcool Project Id>'
+		
+		export let redirect_uri
+		if (Exponent.Constants.manifest.xde) {
+		  // replace `<Exponent URL without Port>` with the app's URL when you open it in exponent
+		  // without the colon and the port
+		  redirect_uri = '<Exponent URL without Port>/+/redirect'
+		} else {
+		  // this URL will be used when you publish your app
+		  redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
+		}
+	```
 	</details>
 
 3. Set the variable `auth0_client_id` by completely replacing the current value of the variable with your `Client Id` from before 
