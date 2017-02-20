@@ -70,6 +70,7 @@ type Comment {
 1. Create the following _models_ in the [Graphcool console](https://console.graph.cool):
 	1. A _model_ called `Post` with _fields_ `description` and `imageUrl`, both of type `String`
 	2. A _model_ called `Comment` with _field_ `content` of type `String`
+
 2. Create the following _relations_:
 	1. A _relation_ called `PostsByUser` that looks as follows:
 		![](./img/postsbyuser.png)
@@ -87,9 +88,12 @@ type Comment {
 
 3. Back in the [Graphcool console](https://console.graph.cool), enable Auth0 as an _authentication provider_ for the `Instagram` app:
 	1. Click on **Integrations** in the left side-menu
+
 	2. Select the **Auth0** integration
+
 	3. Copy and paste the `Domain`, `Client Id` and `Client Secret` over from the Client info section in the Auth0 dashboard into the corresponding fields in the Auth0 integration popup and click **Enable**
-  	 ![](./img/auth0-02.png)
+
+![](./img/auth0-02.png)
 
 
 ### 4. Connecting the Exponent app with Auth0
@@ -101,10 +105,15 @@ type Comment {
 	cd exponent-auth0
 	npm install # or yarn install
 	```
+
 2. Open `main.js` 
+
 3. Set the variable `auth0_client_id` by completely replacing the current value of the variable with your `Client Id` from before 
+
 4. Set the variable `authorize_url` by only replacing the part `<Domain>` with your `Domain` from before (it will then look similar to: `https://johndoe.eu.auth0.com/authorize`)
+
 5. Set the variable `graphQL_endpoint` by replacing `<Graphcool Project Id>` with the Project Id of the `Instagram` project which you find in the [Graphcool console](https://console.graph.cool) if you select the `Instagram` project in the left side-menu and then navigate to **Settings --> General** (it will then look similar to: `https://api.graph.cool/simple/v1/ciyzv01u06cq60185dno8c7nu`)
+
 6. Finally, we need to configure the Auth0 redirect flow with the exponent app in order to set the last variable which is the `redirect_uri`:
    1. If you haven't done so already, download the [Exponent development environment](https://docs.getexponent.com/versions/v14.0.0/introduction/installation.html) (**XDE**) open it and sign in
    2. Open this project by clicking **Project** on the top-left and selecting the directory `exponent-auth0` (note that this is **not** the _root directory_ of this repository which is called `exponent-auth0-instagram-example`)
