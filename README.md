@@ -1,8 +1,8 @@
 
 
-# exponent-auth0-instagram-example
+# expo-auth0-instagram-example
 
-Example Instagram app showing how to use [**Exponent (React Native)**](https://docs.getexponent.com/versions/v14.0.0/index.html) and [**Auth0**](https://auth0.com/).
+Example Instagram app showing how to use [**Expo (React Native)**](https://docs.expo.io/versions/v14.0.0/index.html) and [**Auth0**](https://auth0.com/).
 
 
 
@@ -14,7 +14,7 @@ Example Instagram app showing how to use [**Exponent (React Native)**](https://d
     
     2. [Setting up the Auth0 Authentication Provider](#2-setting-up-the-auth0-authentication-provider)
    
-    3. [Connecting the Exponent app with Auth0](#3-connecting-the-exponent-app-with-auth0)
+    3. [Connecting the Expo app with Auth0](#3-connecting-the-expo-app-with-auth0)
 
   - [Running the App 🚀](#running-the-app-%F0%9F%9A%80)
  
@@ -121,12 +121,12 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 ![](http://imgur.com/jUD7sHQ.png)
 
 
-### 3. Connecting the Exponent app with Auth0
+### 3. Connecting the Expo app with Auth0
 
 1. Clone this repository on your local machine and install the project dependencies 
  
 	```sh
-	git clone https://github.com/graphcool-examples/exponent-auth0-instagram-example.git
+	git clone https://github.com/graphcool-examples/expo-auth0-instagram-example.git
 	yarn install
 	```
 
@@ -147,9 +147,9 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 		
 		export let redirect_uri
 		if (Exponent.Constants.manifest.xde) {
-		  // replace `<Exponent URL without Port>` with the app's URL when you open it in exponent
+		  // replace `<Expo URL without Port>` with the app's URL when you open it in expo
 		  // without the colon and the port
-		  redirect_uri = '<Exponent URL without Port>/+/redirect'
+		  redirect_uri = '<Expo URL without Port>/+/redirect'
 		} else {
 		  // this URL will be used when you publish your app
 		  redirect_uri = `${Exponent.Constants.linkingUri}/redirect`
@@ -163,18 +163,18 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 
 5. Set the variable `graphQL_endpoint` by replacing `<Graphcool Project Id>` with the Project Id of the `Instagram` project which you find in the [Graphcool console](https://console.graph.cool) if you select the `Instagram` project in the left side-menu and then navigate to **Settings --> General** (it will then look similar to: `https://api.graph.cool/simple/v1/ciyzv01u06cq60185dno8c7nu`)
 
-6. Finally, we need to configure the Auth0 redirect flow with the exponent app in order to set the last variable which is the `redirect_uri`:
+6. Finally, we need to configure the Auth0 redirect flow with the expo app in order to set the last variable which is the `redirect_uri`:
 
-   1. If you haven't done so already, download the [Exponent development environment](https://docs.getexponent.com/versions/v14.0.0/introduction/installation.html) (**XDE**) open it and sign in
+   1. If you haven't done so already, download the [Expo Development Environment](https://docs.expo.io/versions/v14.0.0/introduction/installation.html) (**XDE**) open it and sign in
   
-   2. Open this project by clicking **Project** on the top-left and selecting the directory `exponent-auth0-instagram-example`
+   2. Open this project by clicking **Project** on the top-left and selecting the directory `expo-auth0-instagram-example`
 
-   3. Now, from the exponent URL that you see in the address bar on top, copy everything **except for the colon and port** as shown in this screenshot:
+   3. Now, from the expo URL that you see in the address bar on top, copy everything **except for the colon and port** as shown in this screenshot:
   	 ![](http://i.imgur.com/8f0qPdg.png)
   	
-  	4. Again, in `main.js`, set the `redirect_uri` variable by replacing the part `<Exponent URL without Port>` with the value you just copied; note that you need to do this in the first part of the `if`-clause, the `else`-part is for the case where the app has been published, then Exponent will set the variable for you 
+  	4. Again, in `main.js`, set the `redirect_uri` variable by replacing the part `<Expo URL without Port>` with the value you just copied; note that you need to do this in the first part of the `if`-clause, the `else`-part is for the case where the app has been published, then Expo will set the variable for you 
   
-  	5. Lastly, back on the config page of the `instagram-example-graphcool` client on the [Auth0 website](https://manage.auth0.com/#/clients) copy the _full value_ of `redirect_uri` from `main.js` into the field **Allowed Callback URLs** (it will look similar to `exp://da-x7f.johndoe.exponent-auth0.exp.direct/+/redirect`)
+  	5. Lastly, back on the config page of the `instagram-example-graphcool` client on the [Auth0 website](https://manage.auth0.com/#/clients) copy the _full value_ of `redirect_uri` from `main.js` into the field **Allowed Callback URLs** (it will look similar to `exp://da-x7f.johndoe.expo-auth0.exp.direct/+/redirect`)
   
   	6. Make sure to click **Save Changes** on the bottom of the page
 
@@ -183,16 +183,16 @@ In the [Graphcool console](https://console.graph.cool), create a new project and
 
 You can now go ahead and run the app by using the **Send Link** option in XDE. This will send a link to an email address of your choice - if you then open the link on a smartphone, the app will be started. 
 
-Note that **Auth0 authentication with Exponent currently only works when running the app on a _real device_ !!** 
+Note that **Auth0 authentication with Expo currently only works when running the app on a _real device_ !!** 
 
-If you'd like to know more about how the Auth0 flow works with Exponent from a technical perspective, you can refer to [this example](https://github.com/AppAndFlow/exponent-auth0-example).
+If you'd like to know more about how the Auth0 flow works with Expo from a technical perspective, you can refer to [this example](https://github.com/AppAndFlow/exponent-auth0-example).
 
 
 ## Publishing the App
 
-In case you want to make your app accessible to other Exponent users, or even publish it on the App Store, you will need to add another url to the field **Allowed Callback URLs** in the config page of your Auth0 client on the [Auth0 website](https://manage.auth0.com/#/clients). 
+In case you want to make your app accessible to other Expo users, or even publish it on the App Store, you will need to add another url to the field **Allowed Callback URLs** in the config page of your Auth0 client on the [Auth0 website](https://manage.auth0.com/#/clients). 
 
-This URL will have the following structure: `exp://exp.host/@<Your Exponent Username>/<Your Exponent App>/+/redirect` (so it will look similar to this one: `exp://exp.host/@johndoe/exponent-auth0/+/redirect`)
+This URL will have the following structure: `exp://exp.host/@<Your Expo Username>/<Your Expo App>/+/redirect` (so it will look similar to this one: `exp://exp.host/@johndoe/expo-auth0/+/redirect`)
 
 
 ## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
