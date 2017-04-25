@@ -1,7 +1,7 @@
 type User {
   id: ID!
   createdAt: DateTime!
-  updateAt: DateTime!
+  updatedAt: DateTime!
   posts: [Post!]!  @relation(name: "PostsByUser")
   name: String!
   comments: [Comment!]! @relation(name: "CommentsByUser")
